@@ -1,0 +1,70 @@
+<%@page import="com.model.Cart" %>
+<%@page import="java.util.List" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<script type="text/javascript">
+function total(){
+	let t_price = 0;
+
+	let prices = document.getElementsByClassName("f_price"); // ✅ fixed
+	let quantities = document.getElementsByClassName("f_quan");
+	let totalFields = document.getElementsByClassName("t_price");
+
+	for(let i=0;i< prices.length;i++){
+		let price = parseFloat(prices[i].value) || 0;
+		let quantity = parseInt(quantities[i].value) || 0;
+		let total = price * quantity;
+		totalFields[i].value = total.toFixed(2);
+		t_price += total;
+	}
+	document.getElementById("price").value = t_price.toFixed(2); 
+}
+
+function totalAndSubmit(){
+	total();
+	document.forms[0].submit(); 
+}
+</script>
+
+<title>Insert title here</title>
+</head>
+<body>
+<% List<Cart> list=(List)session.getAttribute("c_list"); %>
+<%@ include file="header.jsp" %>
+<form action="placeorder" method="post">
+<input type="hidden" id="price" name="price">
+<table border="1" style="margin-top:2rem">
+<caption style="color:crimson"><h1>Cart List</h1></caption>
+
+<tr>
+
+<th>F_Name</th>
+<th>F_Price</th>
+<th>Quantity</th>
+<th>TotalPrice</th>
+<th >Action</th>
+</tr>
+<% for(Cart c:list){ %>
+
+<tr>
+
+<td><%=c.getF_name() %></td>
+<td><input type="text" class="f_price" name="f_price" value="<%=c.getF_price()%>" style="width:64px" readonly="readonly"></td>
+<td><input type="number" class="f_quan" name="f_quan" value="<%=c.getF_quantity()%>" style="width:64px" ></td>
+<td><input type="text" class="t_price" name="t_price" value="<%=c.getT_price()%>" style="width:64px" readonly="readonly">
+<td>
+<a href="cart?action=delete&c_id=<%=c.getC_id()%>" style="color:red; text-decoration:none;">Delete</a>
+</td>
+</tr>
+<% } %>
+</table>
+<button type="submit" name="action" value="placeholder"  onclick="totalAndSubmit()">Placeorder</button>
+</form>
+<%@include file="footer.jsp" %>
+
+</body>
+</html>
