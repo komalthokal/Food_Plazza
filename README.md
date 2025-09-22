@@ -33,9 +33,10 @@ This project is developed using **Java Servlets, JSP, JDBC, and MySQL**, and dep
 ## ⚙️ Installation & Setup
 1. Clone the repository:
    ```bash
-   git clone https://github.com/komalthokal/Food_Plaza.git
+   git clone https://github.com/komalthokal/Food_Plazza.git
 
 2.Import the project into Eclipse/IntelliJ.
+
 3.Configure the database:
   -Create a database fs in MySQL.
   -Run the SQL script provided (fs.sql).
@@ -45,5 +46,7 @@ This project is developed using **Java Servlets, JSP, JDBC, and MySQL**, and dep
     private static final String PASSWORD = "your_password";
 
 4.Deploy the project on Apache Tomcat (v9 or above).
+
 5.Start Tomcat and open:
+```bash
  http://localhost:8080/Food_Plaza/
